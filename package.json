@@ -1,0 +1,27 @@
+{
+  "name": "festival-marketing-calendar",
+  "version": "1.0.0",
+  "description": "节日营销日历（倒计时）单页网站",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt generate",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+
+  "dependencies": {
+    "@nuxt/ui": "^3.3.0",
+    "@nuxtjs/google-fonts": "^3.0.2",
+    "dayjs": "^1.11.10",
+    "xlsx": "^0.18.5",
+    "html2pdf.js": "^0.10.1"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "nuxt": "^4.0.0",
+    "tailwindcss": "^4.1.12"
+  }
+}

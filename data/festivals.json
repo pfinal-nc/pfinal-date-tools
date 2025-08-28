@@ -1,0 +1,416 @@
+{
+  "festivals": [
+    {
+      "id": 1,
+      "name": "元旦",
+      "date": "2025-01-01",
+      "preparationDays": 15,
+      "industries": ["all", "retail", "food", "beauty", "education"],
+      "description": "新年第一天，适合各类促销活动",
+      "marketingPlan": {
+        "retail": [
+          "新年大促：全场8折起",
+          "新年福袋：满减优惠券",
+          "会员专享：积分翻倍活动"
+        ],
+        "food": [
+          "新年套餐：团圆饭预订",
+          "跨年活动：零点倒计时优惠",
+          "新年礼盒：年货礼包"
+        ],
+        "beauty": [
+          "新年焕新：护肤套装优惠",
+          "新年妆容：彩妆礼盒",
+          "会员专享：新年礼包"
+        ],
+        "education": [
+          "新年课程：寒假班报名",
+          "新年优惠：课程折扣",
+          "新年活动：免费试听"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "春节",
+      "date": "2025-01-29",
+      "preparationDays": 30,
+      "industries": ["all", "retail", "food", "beauty", "education"],
+      "description": "中国最重要的传统节日",
+      "marketingPlan": {
+        "retail": [
+          "春节大促：年货节活动",
+          "红包活动：满减优惠",
+          "春节礼盒：礼品套装"
+        ],
+        "food": [
+          "年夜饭预订：团圆套餐",
+          "春节礼盒：年货礼包",
+          "外卖优惠：春节不打烊"
+        ],
+        "beauty": [
+          "春节礼盒：护肤套装",
+          "新年妆容：彩妆礼包",
+          "会员专享：春节礼包"
+        ],
+        "education": [
+          "寒假班：春节前报名优惠",
+          "新年课程：春季班预报名",
+          "春节活动：亲子课程"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "情人节",
+      "date": "2025-02-14",
+      "preparationDays": 20,
+      "industries": ["all", "retail", "food", "beauty"],
+      "description": "浪漫节日，适合情侣消费",
+      "marketingPlan": {
+        "retail": [
+          "情侣专享：双人优惠",
+          "情人节礼盒：礼品套装",
+          "浪漫套餐：情侣商品组合"
+        ],
+        "food": [
+          "情侣套餐：浪漫晚餐",
+          "情人节礼盒：巧克力礼包",
+          "烛光晚餐：特别菜单"
+        ],
+        "beauty": [
+          "情侣护肤：双人套装",
+          "情人节礼盒：彩妆套装",
+          "浪漫香氛：香水礼盒"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "三八妇女节",
+      "date": "2025-03-08",
+      "preparationDays": 15,
+      "industries": ["all", "retail", "beauty", "education"],
+      "description": "女性节日，美妆和女性用品热销",
+      "marketingPlan": {
+        "retail": [
+          "女神节大促：女性用品优惠",
+          "女神礼盒：精美礼品",
+          "会员专享：女性会员优惠"
+        ],
+        "beauty": [
+          "女神节大促：护肤彩妆优惠",
+          "女神礼盒：美妆套装",
+          "专业护理：美容服务优惠"
+        ],
+        "education": [
+          "女性课程：技能提升班",
+          "女神节活动：免费试听",
+          "女性社群：学习交流活动"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "name": "清明节",
+      "date": "2025-04-05",
+      "preparationDays": 10,
+      "industries": ["all", "food", "education"],
+      "description": "传统节日，适合踏青和亲子活动",
+      "marketingPlan": {
+        "food": [
+          "清明踏青：野餐套餐",
+          "传统美食：清明特色菜",
+          "亲子套餐：家庭优惠"
+        ],
+        "education": [
+          "清明活动：传统文化课程",
+          "亲子课程：手工制作",
+          "户外活动：自然探索"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "name": "五一劳动节",
+      "date": "2025-05-01",
+      "preparationDays": 20,
+      "industries": ["all", "retail", "food", "education"],
+      "description": "小长假，适合各类促销活动",
+      "marketingPlan": {
+        "retail": [
+          "五一大促：全场优惠",
+          "劳动节礼盒：礼品套装",
+          "会员专享：积分活动"
+        ],
+        "food": [
+          "五一套餐：节日优惠",
+          "劳动节礼盒：美食礼包",
+          "外卖优惠：满减活动"
+        ],
+        "education": [
+          "五一课程：技能提升",
+          "劳动节活动：免费试听",
+          "亲子课程：家庭活动"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "name": "母亲节",
+      "date": "2025-05-11",
+      "preparationDays": 15,
+      "industries": ["all", "retail", "food", "beauty"],
+      "description": "感恩母亲，适合礼品和餐饮消费",
+      "marketingPlan": {
+        "retail": [
+          "母亲节礼盒：精美礼品",
+          "感恩套餐：母亲用品",
+          "会员专享：母亲节优惠"
+        ],
+        "food": [
+          "母亲节套餐：家庭聚餐",
+          "感恩礼盒：美食礼包",
+          "外卖优惠：母亲节特惠"
+        ],
+        "beauty": [
+          "母亲节礼盒：护肤套装",
+          "感恩套餐：美容服务",
+          "会员专享：母亲节礼包"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "name": "六一儿童节",
+      "date": "2025-06-01",
+      "preparationDays": 15,
+      "industries": ["all", "retail", "food", "education"],
+      "description": "儿童节日，适合亲子消费",
+      "marketingPlan": {
+        "retail": [
+          "儿童节大促：玩具文具优惠",
+          "亲子礼盒：儿童用品",
+          "会员专享：儿童节优惠"
+        ],
+        "food": [
+          "儿童节套餐：亲子套餐",
+          "儿童礼盒：零食礼包",
+          "亲子优惠：家庭套餐"
+        ],
+        "education": [
+          "儿童节活动：免费试听",
+          "亲子课程：手工制作",
+          "儿童课程：兴趣培养"
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "name": "端午节",
+      "date": "2025-05-31",
+      "preparationDays": 15,
+      "industries": ["all", "food", "education"],
+      "description": "传统节日，粽子等传统食品热销",
+      "marketingPlan": {
+        "food": [
+          "端午礼盒：粽子礼包",
+          "传统美食：端午特色菜",
+          "家庭套餐：团圆优惠"
+        ],
+        "education": [
+          "端午活动：传统文化课程",
+          "亲子课程：包粽子活动",
+          "文化体验：传统节日教育"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "name": "618购物节",
+      "date": "2025-06-18",
+      "preparationDays": 45,
+      "industries": ["all", "retail", "beauty"],
+      "description": "电商大促节日，全年重要营销节点",
+      "marketingPlan": {
+        "retail": [
+          "618大促：全场优惠",
+          "预售活动：提前锁定客户",
+          "会员专享：积分翻倍"
+        ],
+        "beauty": [
+          "618美妆节：护肤彩妆优惠",
+          "预售礼盒：美妆套装",
+          "会员专享：美妆礼包"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "name": "七夕节",
+      "date": "2025-08-02",
+      "preparationDays": 20,
+      "industries": ["all", "retail", "food", "beauty"],
+      "description": "中国情人节，适合情侣消费",
+      "marketingPlan": {
+        "retail": [
+          "七夕礼盒：情侣礼品",
+          "浪漫套餐：情侣商品",
+          "会员专享：七夕优惠"
+        ],
+        "food": [
+          "七夕套餐：浪漫晚餐",
+          "情侣礼盒：美食礼包",
+          "烛光晚餐：特别菜单"
+        ],
+        "beauty": [
+          "七夕礼盒：美妆套装",
+          "情侣护肤：双人套装",
+          "浪漫香氛：香水礼盒"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "name": "中秋节",
+      "date": "2025-09-29",
+      "preparationDays": 25,
+      "industries": ["all", "retail", "food", "education"],
+      "description": "团圆节日，月饼等传统食品热销",
+      "marketingPlan": {
+        "retail": [
+          "中秋礼盒：月饼礼包",
+          "团圆套餐：礼品套装",
+          "会员专享：中秋优惠"
+        ],
+        "food": [
+          "中秋礼盒：月饼礼包",
+          "团圆套餐：家庭聚餐",
+          "传统美食：中秋特色菜"
+        ],
+        "education": [
+          "中秋活动：传统文化课程",
+          "亲子课程：月饼制作",
+          "文化体验：传统节日教育"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "name": "国庆节",
+      "date": "2025-10-01",
+      "preparationDays": 30,
+      "industries": ["all", "retail", "food", "education"],
+      "description": "黄金周，全年重要营销节点",
+      "marketingPlan": {
+        "retail": [
+          "国庆大促：全场优惠",
+          "国庆礼盒：礼品套装",
+          "会员专享：积分活动"
+        ],
+        "food": [
+          "国庆套餐：节日优惠",
+          "国庆礼盒：美食礼包",
+          "外卖优惠：满减活动"
+        ],
+        "education": [
+          "国庆课程：技能提升",
+          "国庆活动：免费试听",
+          "亲子课程：家庭活动"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "name": "双11购物节",
+      "date": "2025-11-11",
+      "preparationDays": 45,
+      "industries": ["all", "retail", "beauty"],
+      "description": "全球最大购物节，全年最重要营销节点",
+      "marketingPlan": {
+        "retail": [
+          "双11大促：全场优惠",
+          "预售活动：提前锁定客户",
+          "会员专享：积分翻倍"
+        ],
+        "beauty": [
+          "双11美妆节：护肤彩妆优惠",
+          "预售礼盒：美妆套装",
+          "会员专享：美妆礼包"
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "name": "双12购物节",
+      "date": "2025-12-12",
+      "preparationDays": 30,
+      "industries": ["all", "retail", "beauty"],
+      "description": "年末大促，清仓和年终促销",
+      "marketingPlan": {
+        "retail": [
+          "双12大促：年末清仓",
+          "年终礼盒：礼品套装",
+          "会员专享：年终优惠"
+        ],
+        "beauty": [
+          "双12美妆节：年末优惠",
+          "年终礼盒：美妆套装",
+          "会员专享：年终礼包"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "name": "圣诞节",
+      "date": "2025-12-25",
+      "preparationDays": 20,
+      "industries": ["all", "retail", "food", "beauty"],
+      "description": "西方节日，适合礼品和餐饮消费",
+      "marketingPlan": {
+        "retail": [
+          "圣诞礼盒：精美礼品",
+          "圣诞套餐：节日商品",
+          "会员专享：圣诞优惠"
+        ],
+        "food": [
+          "圣诞套餐：节日聚餐",
+          "圣诞礼盒：美食礼包",
+          "外卖优惠：圣诞特惠"
+        ],
+        "beauty": [
+          "圣诞礼盒：美妆套装",
+          "圣诞套餐：美容服务",
+          "会员专享：圣诞礼包"
+        ]
+      }
+    }
+  ],
+  "industries": [
+    {
+      "id": "all",
+      "name": "全部行业",
+      "description": "所有行业的节日营销节点"
+    },
+    {
+      "id": "retail",
+      "name": "电商零售",
+      "description": "电商平台、实体零售店铺"
+    },
+    {
+      "id": "food",
+      "name": "餐饮美食",
+      "description": "餐厅、外卖、食品销售"
+    },
+    {
+      "id": "beauty",
+      "name": "美妆护肤",
+      "description": "化妆品、护肤品、美容服务"
+    },
+    {
+      "id": "education",
+      "name": "教育培训",
+      "description": "培训机构、在线教育、技能培训"
+    }
+  ]
+}
