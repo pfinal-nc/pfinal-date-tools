@@ -13,22 +13,7 @@
       
       <template #right>
         <div class="flex items-center space-x-3">
-          <UButton
-            label="导出Excel"
-            icon="i-heroicons-arrow-down-tray"
-            color="orange"
-            variant="outline"
-            size="sm"
-            @click="exportToExcel"
-          />
-          <UButton
-            label="导出PDF"
-            icon="i-heroicons-document-arrow-down"
-            color="orange"
-            variant="outline"
-            size="sm"
-            @click="exportToPDF"
-          />
+          <!-- 导出按钮已移除，现在在营销方案弹窗中 -->
         </div>
       </template>
     </UNavbar>
@@ -56,7 +41,7 @@
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
           选择行业
         </h3>
-        <div class="flex flex-wrap gap-2 sm:gap-3">
+        <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-2 industry-scrollbar">
           <UButton
             v-for="industry in industries"
             :key="industry.id"
@@ -65,7 +50,10 @@
             :variant="selectedIndustry === industry.id ? 'solid' : 'outline'"
             size="sm"
             @click="selectedIndustry = industry.id"
-            class="transition-all duration-200 hover:scale-105"
+            :class="[
+              'transition-all duration-200 hover:scale-105 flex-shrink-0',
+              selectedIndustry === industry.id ? 'industry-selected' : ''
+            ]"
           />
           <!-- 收藏按钮 -->
           <UButton
@@ -77,6 +65,7 @@
             size="sm"
             @click="showFavorites = !showFavorites"
             :class="{ 'bg-red-50 dark:bg-red-900/20': showFavorites }"
+            class="flex-shrink-0"
           />
         </div>
       </div>
@@ -120,7 +109,10 @@
         v-model="showModal"
         :festival="selectedFestival"
         @add-to-favorites="addToFavorites"
+
       />
+
+
 
       <!-- 节日列表 -->
       <div v-if="filteredFestivals.length > 0">
@@ -132,13 +124,13 @@
             </span>
           </h3>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full" style="display: grid !important;"> 
+        <div class="festival-list grid grid-cols-1 gap-4 sm:gap-6 w-full"> 
           <FestivalCard
-            v-for="festival in filteredFestivals"
+            v-for="(festival, index) in filteredFestivals"
             :key="festival.id"
             :festival="festival"
             :selected-industry="selectedIndustry"
-            @show-plan="showMarketingPlan"
+            @show-plan="(festival: any) => showMarketingPlan(festival, index)"
             @export="exportFestival"
           />
         </div>
@@ -151,7 +143,7 @@
           暂无节日数据
         </h3>
         <p class="text-gray-500 dark:text-gray-400">
-          该行业暂无节日数据，请选择其他行业查看
+          该行业暂无节日数据，换个行业看看吧～
         </p>
       </div>
 
@@ -258,17 +250,36 @@ const showModal = ref(false)
 const selectedFestival = ref(null)
 const showFavorites = ref(false)
 
+
+
+
 // 获取节日数据
 import festivalData from '~/data/festivals.json'
 
-// 调试信息
-console.log('节日数据:', festivalData)
-console.log('节日数量:', festivalData?.festivals?.length || 0)
-console.log('行业数量:', festivalData?.industries?.length || 0)
+// 使用 shallowRef 避免深层响应式，提升性能
+const festivalDataRef = shallowRef(festivalData)
 
-// 计算属性
-const festivals = computed(() => festivalData?.festivals || [])
-const industries = computed(() => festivalData?.industries || [])
+// 调试信息
+console.log('节日数据:', festivalDataRef.value)
+console.log('节日数量:', festivalDataRef.value?.festivals?.length || 0)
+console.log('行业数量:', festivalDataRef.value?.industries?.length || 0)
+
+// 计算属性 - 使用 markRaw 避免不必要的响应式包装
+const festivals = computed(() => markRaw(festivalDataRef.value?.festivals || []))
+const industries = computed(() => markRaw(festivalDataRef.value?.industries || []))
+
+// 缓存收藏数据，避免重复解析
+const favoritesCache = ref<number[]>([])
+
+// 更新收藏缓存
+const updateFavoritesCache = () => {
+  favoritesCache.value = JSON.parse(safeLocalStorage.getItem('festivalFavorites') || '[]')
+}
+
+// 初始化时更新缓存
+onMounted(() => {
+  updateFavoritesCache()
+})
 
 const filteredFestivals = computed(() => {
   let filtered = festivals.value
@@ -282,8 +293,7 @@ const filteredFestivals = computed(() => {
 
   // 收藏筛选
   if (showFavorites.value) {
-    const favorites = JSON.parse(safeLocalStorage.getItem('festivalFavorites') || '[]')
-    filtered = filtered.filter(festival => favorites.includes(festival.id))
+    filtered = filtered.filter(festival => favoritesCache.value.includes(festival.id))
   }
 
   // 按日期排序，已过的节日放到最后
@@ -303,11 +313,6 @@ const filteredFestivals = computed(() => {
     // 如果都是已过的或都是未过的，按日期排序
     return dateA.diff(dateB)
   })
-  
-  // 调试信息
-  console.log('筛选后的节日数量:', sorted.length)
-  console.log('当前行业:', selectedIndustry.value)
-  console.log('显示收藏:', showFavorites.value)
   
   return sorted
 })
@@ -335,8 +340,7 @@ const preparationFestivals = computed(() => {
 })
 
 const favoriteCount = computed(() => {
-  const favorites = JSON.parse(safeLocalStorage.getItem('festivalFavorites') || '[]')
-  return favorites.length
+  return favoritesCache.value.length
 })
 
 const hasFavorites = computed(() => {
@@ -344,9 +348,10 @@ const hasFavorites = computed(() => {
 })
 
 // 方法
-const showMarketingPlan = (festival: any) => {
+const showMarketingPlan = (festival: any, index?: number) => {
   selectedFestival.value = festival
   showModal.value = true
+  console.log(`打开营销方案弹窗 - 节日: ${festival.name}, 索引: ${index}`)
 }
 
 const addToFavorites = (festival: any) => {
@@ -354,6 +359,8 @@ const addToFavorites = (festival: any) => {
   if (!favorites.includes(festival.id)) {
     favorites.push(festival.id)
     safeLocalStorage.setItem('festivalFavorites', JSON.stringify(favorites))
+    // 同步更新缓存
+    updateFavoritesCache()
   }
 }
 
@@ -362,111 +369,25 @@ const exportFestival = (festival: any) => {
   console.log('导出节日:', festival.name)
 }
 
-const exportToExcel = async () => {
-  // 检查导出权限
-  if (safeLocalStorage.getItem('exportPermission') !== 'true') {
-    alert('请先购买导出权限（9.9元）')
-    return
-  }
 
-  try {
-    // 动态导入 XLSX
-    const XLSX = await import('xlsx')
-    
-    // 准备导出数据
-    const exportData = filteredFestivals.value.map(festival => ({
-      '节日名称': festival.name,
-      '日期': dayjs(festival.date).format('YYYY-MM-DD'),
-      '距节日天数': dayjs(festival.date).diff(dayjs(), 'day'),
-      '筹备期天数': festival.preparationDays,
-      '适用行业': festival.industries.filter(i => i !== 'all').join('、'),
-      '描述': festival.description
-    }))
 
-    // 创建工作簿
-    const wb = XLSX.utils.book_new()
-    const ws = XLSX.utils.json_to_sheet(exportData)
-    XLSX.utils.book_append_sheet(wb, ws, '节日营销日历')
 
-    // 导出文件
-    XLSX.writeFile(wb, `节日营销日历_${dayjs().format('YYYY-MM-DD')}.xlsx`)
-  } catch (error) {
-    console.error('导出Excel失败:', error)
-    alert('导出失败，请稍后重试')
-  }
-}
-
-const exportToPDF = async () => {
-  // 检查导出权限
-  if (safeLocalStorage.getItem('exportPermission') !== 'true') {
-    alert('请先购买导出权限（9.9元）')
-    return
-  }
-
-  try {
-    // 动态导入 html2pdf
-    const html2pdf = (await import('html2pdf.js')).default
-    
-    // 创建PDF内容
-    const content = document.createElement('div')
-    content.innerHTML = `
-      <div style="padding: 20px; font-family: 'Noto Sans SC', sans-serif;">
-        <h1 style="text-align: center; color: #1f2937; margin-bottom: 30px;">
-          2025节日营销日历
-        </h1>
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="background-color: #f3f4f6;">
-              <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">节日名称</th>
-              <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">日期</th>
-              <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">距节日天数</th>
-              <th style="border: 1px solid #d1d5db; padding: 8px; text-align: left;">筹备期天数</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filteredFestivals.value.map(festival => `
-              <tr>
-                <td style="border: 1px solid #d1d5db; padding: 8px;">${festival.name}</td>
-                <td style="border: 1px solid #d1d5db; padding: 8px;">${dayjs(festival.date).format('YYYY-MM-DD')}</td>
-                <td style="border: 1px solid #d1d5db; padding: 8px;">${dayjs(festival.date).diff(dayjs(), 'day')}</td>
-                <td style="border: 1px solid #d1d5db; padding: 8px;">${festival.preparationDays}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        <p style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 12px;">
-          生成时间：${dayjs().format('YYYY-MM-DD HH:mm:ss')}
-        </p>
-      </div>
-    `
-
-    // 配置PDF选项
-    const opt = {
-      margin: 1,
-      filename: `节日营销日历_${dayjs().format('YYYY-MM-DD')}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-    }
-
-    // 生成PDF
-    html2pdf().set(opt).from(content).save()
-  } catch (error) {
-    console.error('导出PDF失败:', error)
-    alert('导出失败，请稍后重试')
-  }
-}
 
 // 自动刷新倒计时（每小时）
 let refreshTimer: NodeJS.Timeout
 
 onMounted(() => {
+  updateFavoritesCache()
+  
+  // 每小时刷新倒计时
   refreshTimer = setInterval(() => {
-    // 触发响应式更新
+    // 触发响应式更新，强制重新计算倒计时
     nextTick(() => {
-      // 这里可以添加刷新逻辑
+      // 通过更新一个响应式变量来触发重新渲染
+      const now = Date.now()
+      // 这里可以添加任何响应式更新逻辑
     })
-  }, 3600000) // 每小时刷新一次
+  }, 3600000) // 每小时刷新一次 (3600000ms = 1小时)
 })
 
 onUnmounted(() => {
@@ -475,3 +396,65 @@ onUnmounted(() => {
   }
 })
 </script>
+
+<style scoped>
+/* 行业筛选栏移动端滚动优化 */
+.industry-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.industry-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* 节日列表响应式布局 */
+.festival-list {
+  grid-template-columns: repeat(1, 1fr); /* 移动端 1 列 */
+}
+
+/* 平板端 2 列 */
+@media (min-width: 768px) {
+  .festival-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 桌面端 3 列 */
+@media (min-width: 1024px) {
+  .festival-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 大屏端 4 列 */
+@media (min-width: 1280px) {
+  .festival-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 行业按钮选中态自定义颜色 */
+.industry-selected {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: white !important;
+}
+
+.industry-selected:hover {
+  background-color: #2980b9 !important;
+  border-color: #2980b9 !important;
+}
+
+
+
+/* 确保按钮在移动端有足够的点击区域 */
+@media (max-width: 640px) {
+  .industry-scrollbar button {
+    min-width: 80px;
+    padding: 8px 12px;
+    min-height: 44px; /* 符合移动端触控标准 */
+  }
+}
+</style>

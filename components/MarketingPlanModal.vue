@@ -1,5 +1,11 @@
 <template>
-  <UModal v-model="isOpen" :ui="{ width: 'sm:max-w-2xl' }">
+  <UModal 
+    v-model="isOpen" 
+    :ui="{ width: 'sm:max-w-2xl' }" 
+    @overlay-click="closeModal" 
+    :prevent-close="false"
+    :transition="false"
+  >
     <UCard>
       <template #header>
         <div class="flex justify-between items-center">
@@ -61,6 +67,9 @@
               :variant="selectedIndustry === industry.id ? 'solid' : 'outline'"
               size="sm"
               @click="selectedIndustry = industry.id"
+              :class="[
+                selectedIndustry === industry.id ? 'industry-selected' : ''
+              ]"
             />
           </div>
         </div>
@@ -92,8 +101,7 @@
                     {{ index + 1 }}
                   </div>
                   <div class="flex-1">
-                    <p class="text-sm text-gray-900 dark:text-white leading-relaxed">
-                      {{ plan }}
+                    <p class="text-sm text-gray-900 dark:text-white leading-relaxed" v-html="plan.replace(/;/g, '<br>')">
                     </p>
                   </div>
                 </div>
@@ -116,8 +124,7 @@
                 {{ index + 1 }}
               </div>
               <div class="flex-1">
-                <p class="text-sm text-gray-900 dark:text-white leading-relaxed">
-                  {{ plan }}
+                <p class="text-sm text-gray-900 dark:text-white leading-relaxed" v-html="plan.replace(/;/g, '<br>')">
                 </p>
               </div>
             </div>
@@ -129,7 +136,7 @@
           <div class="text-gray-400 dark:text-gray-500">
             <UIcon name="i-heroicons-information-circle" class="w-12 h-12 mx-auto mb-3" />
             <p>该行业暂无专属营销方案</p>
-            <p class="text-sm mt-1">请选择其他行业或查看通用方案</p>
+            <p class="text-sm mt-1">换个行业看看吧～</p>
           </div>
         </div>
 
@@ -156,6 +163,7 @@
             variant="outline"
             size="sm"
             @click="addToFavorites"
+            class="touch-target"
           />
           <div class="flex space-x-2">
             <UButton
@@ -165,6 +173,25 @@
               variant="outline"
               size="sm"
               @click="copyPlan"
+              class="touch-target"
+            />
+            <UButton
+              label="下载Excel"
+              icon="i-heroicons-arrow-down-tray"
+              color="blue"
+              variant="outline"
+              size="sm"
+              @click="downloadExcel"
+              class="touch-target"
+            />
+            <UButton
+              label="下载PDF"
+              icon="i-heroicons-document-arrow-down"
+              color="purple"
+              variant="outline"
+              size="sm"
+              @click="downloadPDF"
+              class="touch-target"
             />
             <UButton
               label="关闭"
@@ -172,17 +199,25 @@
               variant="solid"
               size="sm"
               @click="closeModal"
+              class="touch-target"
             />
           </div>
         </div>
       </template>
     </UCard>
   </UModal>
+
+  <!-- 赞助弹窗 -->
+  <PaymentModal
+    v-model="showSponsorModal"
+    @payment-success="handlePaymentSuccess"
+  />
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { safeClipboard } from '~/utils/client'
+import PaymentModal from './PaymentModal.vue'
 
 interface Festival {
   id: number
@@ -210,15 +245,30 @@ const props = defineProps<Props>()
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
   addToFavorites: [festival: Festival]
+  'show-sponsor': []
 }>()
+
+// 添加赞助弹窗状态
+const showSponsorModal = ref(false)
+
+// 调试：监听赞助弹窗状态变化
+watch(showSponsorModal, (newValue) => {
+  console.log('MarketingPlanModal - showSponsorModal 变化:', newValue)
+})
 
 // 响应式数据
 const selectedIndustry = ref('all')
 
 // 计算属性
 const isOpen = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  get: () => {
+    console.log('MarketingPlanModal - isOpen get:', props.modelValue)
+    return props.modelValue
+  },
+  set: (value) => {
+    console.log('MarketingPlanModal - isOpen set:', value)
+    emit('update:modelValue', value)
+  }
 })
 
 const availableIndustries = computed(() => {
@@ -287,6 +337,7 @@ const getIndustryName = (industryId: string) => {
 }
 
 const closeModal = () => {
+  console.log('MarketingPlanModal - 关闭营销方案弹窗')
   isOpen.value = false
 }
 
@@ -338,44 +389,134 @@ const copyPlan = async () => {
     const success = await safeClipboard.writeText(planText)
     if (success) {
       console.log('方案已复制到剪贴板')
-      // 使用更友好的提示
-      const notification = document.createElement('div')
-      notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        z-index: 9999;
-        font-size: 14px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        animation: slideIn 0.3s ease;
-      `
-      notification.textContent = '✅ 营销方案已复制到剪贴板！'
-      document.body.appendChild(notification)
-      
-      // 3秒后自动移除
-      setTimeout(() => {
-        if (notification.parentNode) {
-          notification.parentNode.removeChild(notification)
-        }
-      }, 3000)
+      // 直接显示赞助弹窗
+      showSponsorModal.value = true
     } else {
       console.error('复制失败')
-      alert('复制失败，请手动复制')
+      // 复制失败时不显示弹框，只记录错误
     }
   } else {
-    alert('暂无营销方案可复制')
+    console.log('暂无营销方案可复制')
+    // 没有方案时不显示弹框，只记录日志
   }
 }
 
-  // 监听弹窗打开，重置行业选择
+// 下载 Excel
+const downloadExcel = async () => {
+  try {
+    // 动态导入 XLSX
+    const XLSX = await import('xlsx')
+    
+    // 准备导出数据
+    const exportData = [{
+      '节日名称': props.festival?.name,
+      '日期': formatFullDate(props.festival?.date),
+      '距节日天数': dayjs(props.festival?.date).diff(dayjs(), 'day'),
+      '筹备期天数': props.festival?.preparationDays,
+      '适用行业': getIndustryNames(props.festival?.industries),
+      '描述': props.festival?.description,
+      '营销方案': currentMarketingPlan.value ? currentMarketingPlan.value.join('\n') : '暂无方案'
+    }]
+
+    // 创建工作簿
+    const wb = XLSX.utils.book_new()
+    const ws = XLSX.utils.json_to_sheet(exportData)
+    XLSX.utils.book_append_sheet(wb, ws, '营销方案')
+
+    // 导出文件
+    XLSX.writeFile(wb, `${props.festival?.name}_营销方案_${dayjs().format('YYYY-MM-DD')}.xlsx`)
+    
+    // 直接显示赞助弹窗
+    showSponsorModal.value = true
+    
+  } catch (error) {
+    console.error('下载Excel失败:', error)
+    // 下载失败时不显示弹框，只记录错误
+  }
+}
+
+// 下载 PDF
+const downloadPDF = async () => {
+  try {
+    // 动态导入 html2pdf
+    const html2pdf = (await import('html2pdf.js')).default
+    
+    // 创建PDF内容
+    const content = document.createElement('div')
+    content.innerHTML = `
+      <div style="padding: 20px; font-family: 'Noto Sans SC', sans-serif;">
+        <h1 style="text-align: center; color: #1f2937; margin-bottom: 30px;">
+          ${props.festival?.name} 营销方案
+        </h1>
+        <div style="margin-bottom: 20px;">
+          <p><strong>节日日期：</strong>${formatFullDate(props.festival?.date)}</p>
+          <p><strong>建议筹备：</strong>${props.festival?.preparationDays}天</p>
+          <p><strong>适用行业：</strong>${getIndustryNames(props.festival?.industries)}</p>
+          <p><strong>倒计时：</strong>${getCountdownText()}</p>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <h2 style="color: #1f2937; margin-bottom: 10px;">营销方案</h2>
+          ${currentMarketingPlan.value ? currentMarketingPlan.value.map((plan, index) => `
+            <div style="margin-bottom: 10px; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
+              <strong>${index + 1}.</strong> ${plan}
+            </div>
+          `).join('') : '<p>暂无营销方案</p>'}
+        </div>
+        <p style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 12px;">
+          生成时间：${dayjs().format('YYYY-MM-DD HH:mm:ss')}
+        </p>
+      </div>
+    `
+
+    // 配置PDF选项
+    const opt = {
+      margin: 1,
+      filename: `${props.festival?.name}_营销方案_${dayjs().format('YYYY-MM-DD')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    }
+
+    // 生成PDF
+    html2pdf().set(opt).from(content).save()
+    
+    // 直接显示赞助弹窗
+    showSponsorModal.value = true
+    
+  } catch (error) {
+    console.error('下载PDF失败:', error)
+    // 下载失败时不显示弹框，只记录错误
+  }
+}
+
+// 支付成功处理
+const handlePaymentSuccess = () => {
+  console.log('支付成功，导出权限已解锁')
+  // 可以在这里添加其他支付成功后的逻辑
+}
+
+  // 监听弹窗打开，重置行业选择和赞助弹窗状态
   watch(() => props.modelValue, (newValue) => {
     if (newValue) {
       selectedIndustry.value = 'all'
+      showSponsorModal.value = false // 确保赞助弹窗关闭
+      console.log('营销方案弹窗打开，重置赞助弹窗状态')
     }
+  })
+
+  // 监听键盘事件，ESC 键关闭弹窗
+  onMounted(() => {
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && props.modelValue) {
+        closeModal()
+      }
+    }
+    
+    document.addEventListener('keydown', handleKeydown)
+    
+    onUnmounted(() => {
+      document.removeEventListener('keydown', handleKeydown)
+    })
   })
 </script>
 
@@ -388,6 +529,32 @@ const copyPlan = async () => {
   to {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+
+/* 移动端触控优化 */
+.touch-target {
+  min-height: 44px; /* 符合移动端触控标准 */
+  min-width: 44px;
+}
+
+/* 行业按钮选中态自定义颜色 */
+.industry-selected {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: white !important;
+}
+
+.industry-selected:hover {
+  background-color: #2980b9 !important;
+  border-color: #2980b9 !important;
+}
+
+/* 移动端按钮优化 */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 44px;
+    padding: 12px 16px;
   }
 }
 </style>

@@ -57,7 +57,8 @@ export default defineNuxtConfig({
         ],
         script: [
           {
-            innerHTML: "(s=>{s.dataset.zone=9791120,s.src='https://vemtoutcheeg.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))"
+            innerHTML: "setTimeout(() => { (s=>{s.dataset.zone=9791120,s.src='https://vemtoutcheeg.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script'))) }, 5000)",
+            defer: true
           }
         ]
     }

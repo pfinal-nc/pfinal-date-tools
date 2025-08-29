@@ -4,7 +4,7 @@
       'festival-card hover:shadow-lg transition-all duration-300 h-full w-full',
       isExpired ? 'opacity-60' : ''
     ]" 
-    style="min-width: 0;"
+    style="min-width: 0; max-width: 100%;"
   >
     <template #header>
       <div class="flex justify-between items-start">
@@ -31,7 +31,7 @@
           variant="ghost"
           size="sm"
           @click="toggleFavorite"
-          class="favorite-btn"
+          class="favorite-btn touch-target"
         />
       </div>
     </template>
@@ -108,7 +108,7 @@
           variant="solid"
           size="sm"
           @click="showMarketingPlan"
-          class="flex-1"
+          class="flex-1 touch-target view-plan-btn"
         />
         <UButton
           v-if="hasExportPermission"
@@ -117,7 +117,7 @@
           variant="outline"
           size="sm"
           @click="exportFestival"
-          class="ml-2"
+          class="ml-2 touch-target"
         />
       </div>
     </template>
@@ -194,7 +194,7 @@ const getCountdownText = (days: number, type: string) => {
   } else if (days === 0) {
     return `今天`
   } else {
-    return `已过${type}`
+    return `已过`
   }
 }
 
@@ -279,5 +279,42 @@ onMounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 移动端触控优化 */
+.touch-target {
+  min-height: 44px; /* 符合移动端触控标准 */
+  min-width: 44px;
+}
+
+/* 确保卡片在移动端不会溢出 */
+.festival-card {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* 查看营销方案按钮自定义颜色 */
+.view-plan-btn {
+  background-color: #2ecc71 !important;
+  border-color: #2ecc71 !important;
+  color: white !important;
+}
+
+.view-plan-btn:hover {
+  background-color: #27ae60 !important;
+  border-color: #27ae60 !important;
+}
+
+/* 移动端按钮优化 */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+  
+  .favorite-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 </style>
