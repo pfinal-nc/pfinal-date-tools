@@ -259,10 +259,10 @@ import festivalData from '~/data/festivals.json'
 // 使用 shallowRef 避免深层响应式，提升性能
 const festivalDataRef = shallowRef(festivalData)
 
-// 调试信息
-console.log('节日数据:', festivalDataRef.value)
-console.log('节日数量:', festivalDataRef.value?.festivals?.length || 0)
-console.log('行业数量:', festivalDataRef.value?.industries?.length || 0)
+// 数据验证
+if (!festivalDataRef.value?.festivals?.length) {
+  console.warn('节日数据为空')
+}
 
 // 计算属性 - 使用 markRaw 避免不必要的响应式包装
 const festivals = computed(() => markRaw(festivalDataRef.value?.festivals || []))
@@ -351,7 +351,6 @@ const hasFavorites = computed(() => {
 const showMarketingPlan = (festival: any, index?: number) => {
   selectedFestival.value = festival
   showModal.value = true
-  console.log(`打开营销方案弹窗 - 节日: ${festival.name}, 索引: ${index}`)
 }
 
 const addToFavorites = (festival: any) => {
