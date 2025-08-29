@@ -5,8 +5,23 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
+# 允许访问营销相关页面
+Allow: /?industry=ecommerce
+Allow: /?industry=restaurant
+Allow: /?industry=beauty
+Allow: /?industry=education
+
 # 站点地图
 Sitemap: https://miao.friday-go.icu/sitemap.xml
 
 # 爬虫延迟（可选）
 Crawl-delay: 1
+
+# 营销相关爬虫优化
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0.5
