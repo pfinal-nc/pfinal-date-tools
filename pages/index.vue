@@ -200,7 +200,45 @@ useHead({
   meta: [
     {
       name: 'description',
-              content: '妙策 - 专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。'
+      content: '妙策 - 专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。支持双11、618、春节等30+节日营销策划。'
+    },
+    {
+      name: 'keywords',
+      content: '节日营销日历,电商节日节点表,双11筹备时间表,母亲节餐饮促销方案,美妆节日营销,教育机构招生,营销策划工具,节日倒计时,营销方案'
+    },
+    {
+      property: 'og:title',
+      content: '妙策 - 2025节日营销日历 | 专业营销工具'
+    },
+    {
+      property: 'og:description',
+      content: '专业的节日营销日历工具，提供行业定制化营销方案和实时倒计时提醒。支持30+节日营销策划，助力商家提升营销效果。'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://miao.friday-go.icu'
+    },
+    {
+      name: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      name: 'twitter:title',
+      content: '妙策 - 2025节日营销日历'
+    },
+    {
+      name: 'twitter:description',
+      content: '专业的节日营销日历工具，提供行业定制化营销方案和实时倒计时提醒。'
+    }
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://miao.friday-go.icu'
     }
   ]
 })

@@ -66,7 +66,43 @@
         </div>
 
         <!-- 营销方案内容 -->
-        <div v-if="currentMarketingPlan && currentMarketingPlan.length > 0">
+        <div v-if="selectedIndustry === 'all' && festival">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
+            全部行业营销方案
+          </h3>
+          <div class="space-y-6">
+            <div
+              v-for="(plans, industryId) in festival.marketingPlan"
+              :key="industryId"
+              v-if="plans && plans.length > 0"
+              class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            >
+              <div class="bg-gray-100 dark:bg-gray-800 px-4 py-2">
+                <h4 class="font-medium text-gray-900 dark:text-white">
+                  {{ getIndustryName(industryId) }}
+                </h4>
+              </div>
+              <div class="p-4 space-y-3">
+                <div
+                  v-for="(plan, index) in plans"
+                  :key="index"
+                  class="flex items-start space-x-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                >
+                  <div class="flex-shrink-0 w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                    {{ index + 1 }}
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-900 dark:text-white leading-relaxed">
+                      {{ plan }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-else-if="currentMarketingPlan && currentMarketingPlan.length > 0">
           <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-3">
             {{ getIndustryName(selectedIndustry) }} 营销方案
           </h3>
@@ -89,7 +125,7 @@
         </div>
 
         <!-- 无方案提示 -->
-        <div v-else-if="selectedIndustry !== 'all'" class="text-center py-8">
+        <div v-else class="text-center py-8">
           <div class="text-gray-400 dark:text-gray-500">
             <UIcon name="i-heroicons-information-circle" class="w-12 h-12 mx-auto mb-3" />
             <p>该行业暂无专属营销方案</p>
@@ -261,21 +297,97 @@ const addToFavorites = () => {
 }
 
 const copyPlan = async () => {
-  if (!currentMarketingPlan.value.length) return
+  let planText = ''
   
-  const planText = currentMarketingPlan.value.join('\n')
-  const success = await safeClipboard.writeText(planText)
-  if (success) {
-    console.log('方案已复制到剪贴板')
+  if (selectedIndustry.value === 'all') {
+    // 复制所有行业的方案
+    const allPlans: string[] = []
+    if (props.festival) {
+      // 添加节日信息
+      allPlans.push(`【${props.festival.name}】营销方案`)
+      allPlans.push(`节日日期：${formatFullDate(props.festival.date)}`)
+      allPlans.push(`建议筹备：${props.festival.preparationDays}天`)
+      allPlans.push('')
+      
+      Object.entries(props.festival.marketingPlan).forEach(([industryId, plans]) => {
+        if (plans && plans.length > 0) {
+          const industryName = getIndustryName(industryId)
+          allPlans.push(`【${industryName}】`)
+          plans.forEach((plan, index) => {
+            allPlans.push(`${index + 1}. ${plan}`)
+          })
+          allPlans.push('') // 空行分隔
+        }
+      })
+    }
+    planText = allPlans.join('\n')
   } else {
-    console.error('复制失败')
+    // 复制特定行业的方案
+    if (!currentMarketingPlan.value.length) {
+      console.log('该行业暂无营销方案')
+      return
+    }
+    const industryName = getIndustryName(selectedIndustry.value)
+    planText = `【${props.festival?.name}】${industryName}营销方案\n`
+    planText += `节日日期：${formatFullDate(props.festival?.date)}\n`
+    planText += `建议筹备：${props.festival?.preparationDays}天\n\n`
+    planText += currentMarketingPlan.value.map((plan, index) => `${index + 1}. ${plan}`).join('\n')
+  }
+  
+  if (planText.trim()) {
+    const success = await safeClipboard.writeText(planText)
+    if (success) {
+      console.log('方案已复制到剪贴板')
+      // 使用更友好的提示
+      const notification = document.createElement('div')
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        z-index: 9999;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideIn 0.3s ease;
+      `
+      notification.textContent = '✅ 营销方案已复制到剪贴板！'
+      document.body.appendChild(notification)
+      
+      // 3秒后自动移除
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification)
+        }
+      }, 3000)
+    } else {
+      console.error('复制失败')
+      alert('复制失败，请手动复制')
+    }
+  } else {
+    alert('暂无营销方案可复制')
   }
 }
 
-// 监听弹窗打开，重置行业选择
-watch(() => props.modelValue, (newValue) => {
-  if (newValue) {
-    selectedIndustry.value = 'all'
-  }
-})
+  // 监听弹窗打开，重置行业选择
+  watch(() => props.modelValue, (newValue) => {
+    if (newValue) {
+      selectedIndustry.value = 'all'
+    }
+  })
 </script>
+
+<style scoped>
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+</style>

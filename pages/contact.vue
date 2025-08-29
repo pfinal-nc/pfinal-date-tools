@@ -288,11 +288,37 @@
 <script setup lang="ts">
 // SEO 配置
 useHead({
-  title: '联系我们 - 妙策',
+  title: '联系我们 - 妙策 | 技术支持与商务合作',
   meta: [
     {
       name: 'description',
-              content: '联系妙策团队，获取技术支持、产品建议或商务合作信息。'
+      content: '联系妙策团队，获取技术支持、产品建议或商务合作信息。专业节日营销工具服务，为商家提供营销策划支持。'
+    },
+    {
+      name: 'keywords',
+      content: '妙策联系方式,技术支持,商务合作,营销工具咨询,节日营销服务'
+    },
+    {
+      property: 'og:title',
+      content: '联系我们 - 妙策 | 技术支持与商务合作'
+    },
+    {
+      property: 'og:description',
+      content: '联系妙策团队，获取技术支持、产品建议或商务合作信息。'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://miao.friday-go.icu/contact'
+    }
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://miao.friday-go.icu/contact'
     }
   ]
 })

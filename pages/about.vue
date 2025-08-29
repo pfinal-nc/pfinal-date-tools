@@ -292,11 +292,37 @@
 <script setup lang="ts">
 // SEO 配置
 useHead({
-  title: '关于我们 - 妙策',
+  title: '关于我们 - 妙策 | 专业节日营销工具介绍',
   meta: [
     {
       name: 'description',
-              content: '了解妙策的功能特色、使用指南和适用行业，专业的节日营销工具介绍。'
+      content: '了解妙策的功能特色、使用指南和适用行业。专业的节日营销工具，支持电商、餐饮、美妆、教育行业，提供实时倒计时和可落地营销方案。'
+    },
+    {
+      name: 'keywords',
+      content: '妙策介绍,节日营销工具,营销策划软件,电商营销方案,餐饮营销策略,美妆营销工具,教育营销方案'
+    },
+    {
+      property: 'og:title',
+      content: '关于我们 - 妙策 | 专业节日营销工具介绍'
+    },
+    {
+      property: 'og:description',
+      content: '了解妙策的功能特色、使用指南和适用行业。专业的节日营销工具，支持多行业营销策划。'
+    },
+    {
+      property: 'og:type',
+      content: 'website'
+    },
+    {
+      property: 'og:url',
+      content: 'https://miao.friday-go.icu/about'
+    }
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: 'https://miao.friday-go.icu/about'
     }
   ]
 })
