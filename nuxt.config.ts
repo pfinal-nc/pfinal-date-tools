@@ -7,8 +7,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/robots'
   ],
   
   // 应用配置
@@ -82,7 +81,6 @@ export default defineNuxtConfig({
   // 兼容性日期
   compatibilityDate: '2025-08-28',
 
-  // Sitemap 配置
   runtimeConfig: {
     public: {
       siteUrl: 'https://miao.friday-go.icu'
