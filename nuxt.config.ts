@@ -34,6 +34,7 @@ export default defineNuxtConfig({
         { property: 'og:url', content: 'https://miao.friday-go.icu' },
         { property: 'og:site_name', content: '妙策' },
         { property: 'og:locale', content: 'zh_CN' },
+        { property: 'og:image', content: 'https://miao.friday-go.icu/logo.png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: '妙策 - 2025节日营销日历' },
         { name: 'twitter:description', content: '专业的节日营销日历工具，提供行业定制化营销方案和实时倒计时提醒。' },

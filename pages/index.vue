@@ -3,8 +3,8 @@
     <!-- 导航栏 -->
     <UNavbar class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
       <template #left>
-        <div class="flex items-center space-x-2">
-          <UIcon name="i-heroicons-calendar-days" class="w-8 h-8 text-blue-600 dark:text-blue-400" />
+        <div class="flex items-center space-x-3">
+          <img src="~/assets/images/logo.png" alt="妙策" class="w-8 h-8 object-contain" />
           <h1 class="text-xl font-bold text-gray-900 dark:text-white">
             妙策
           </h1>
@@ -37,6 +37,9 @@
     <UContainer class="py-8">
       <!-- 页面标题 -->
       <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <img src="~/assets/images/logo.png" alt="妙策" class="w-16 h-16 object-contain" />
+        </div>
         <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           📅 妙策 - 2025节日营销日历
         </h2>
@@ -155,13 +158,19 @@
     </UContainer>
 
     <!-- 页脚 -->
-    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 py-6 mt-16">
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 py-8 mt-16">
       <UContainer>
-        <div class="text-center text-gray-500 dark:text-gray-400">
-          <p>© 2025 妙策 | 数据每年更新</p>
-          <p class="text-sm mt-1">
-            专业的节日营销工具，助力商家提升营销效果
-          </p>
+        <div class="text-center">
+          <div class="flex justify-center items-center space-x-3 mb-4">
+            <img src="~/assets/images/logo.png" alt="妙策" class="w-8 h-8 object-contain" />
+            <span class="text-lg font-semibold text-gray-900 dark:text-white">妙策</span>
+          </div>
+          <div class="text-gray-500 dark:text-gray-400">
+            <p>© 2025 妙策 | 数据每年更新</p>
+            <p class="text-sm mt-1">
+              专业的节日营销工具，助力商家提升营销效果
+            </p>
+          </div>
         </div>
       </UContainer>
     </footer>
