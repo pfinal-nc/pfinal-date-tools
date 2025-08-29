@@ -1,2 +1,20 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+/* 强制深色模式样式 */
+html.dark {
+  color-scheme: dark;
+}
+
+/* 确保深色模式在线上环境正确显示 */
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    color-scheme: dark;
+  }
+}
+
+/* 强制深色模式背景 */
+html.dark body {
+  background-color: rgb(17 24 39) !important;
+  color: rgb(243 244 246) !important;
+}

@@ -8,6 +8,25 @@
 </template>
 
 <script setup lang="ts">
+// 强制深色模式
+const colorMode = useColorMode()
+colorMode.preference = 'dark'
+
+// 确保在客户端也强制设置为深色模式
+onMounted(() => {
+  // 强制设置深色模式
+  colorMode.preference = 'dark'
+  document.documentElement.classList.add('dark')
+  
+  // 监听颜色模式变化
+  watch(() => colorMode.value, (newMode) => {
+    if (newMode !== 'dark') {
+      colorMode.preference = 'dark'
+      document.documentElement.classList.add('dark')
+    }
+  })
+})
+
 // 全局 SEO 配置
 useHead({
   titleTemplate: (titleChunk) => {
