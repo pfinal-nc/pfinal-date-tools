@@ -39,12 +39,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build for production
-        run: pnpm run build
-        env:
-          NODE_ENV: production
-
-      - name: Generate static site
+      - name: Build and generate static site
         run: pnpm run generate
         env:
           NODE_ENV: production

@@ -248,7 +248,7 @@
 
             <div class="flex space-x-4">
               <UButton
-                icon="i-simple-icons-wechat"
+                icon="i-heroicons-chat-bubble-left"
                 color="green"
                 variant="outline"
                 size="lg"
@@ -257,7 +257,7 @@
                 微信公众号
               </UButton>
               <UButton
-                icon="i-simple-icons-weibo"
+                icon="i-heroicons-chat-bubble-left-right"
                 color="red"
                 variant="outline"
                 size="lg"

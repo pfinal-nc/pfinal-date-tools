@@ -6,7 +6,9 @@ export default defineNuxtConfig({
   // 模块
   modules: [
     '@nuxt/ui',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
   ],
   
   // 应用配置
@@ -65,15 +67,13 @@ export default defineNuxtConfig({
     transpile: ['xlsx', 'html2pdf.js']
   },
 
-
   css: [
     '~/assets/css/main.css'
   ],
   
-  ui: {
-    global: true,
-    icons: ['heroicons', 'simple-icons', 'lucide']
-  },
+  
+
+
     // 颜色模式
     colorMode: {
       preference: 'light'
@@ -82,11 +82,19 @@ export default defineNuxtConfig({
   // 兼容性日期
   compatibilityDate: '2025-08-28',
 
+  // Sitemap 配置
+  runtimeConfig: {
+    public: {
+      siteUrl: 'https://miao.friday-go.icu'
+    }
+  },
+
+
+
   // 静态站点生成
   nitro: {
     prerender: {
-      crawlLinks: true,
-      routes: ['/sitemap.xml', '/robots.txt']
+      crawlLinks: true
     }
   }
 })
