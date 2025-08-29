@@ -18,3 +18,33 @@ html.dark body {
   background-color: rgb(17 24 39) !important;
   color: rgb(243 244 246) !important;
 }
+
+/* 确保自定义按钮样式正确应用 */
+.view-plan-btn {
+  background-color: #2ecc71 !important;
+  border-color: #2ecc71 !important;
+  color: white !important;
+}
+
+.view-plan-btn:hover {
+  background-color: #27ae60 !important;
+  border-color: #27ae60 !important;
+}
+
+/* 行业按钮选中态自定义颜色 */
+.industry-selected {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: white !important;
+}
+
+.industry-selected:hover {
+  background-color: #2980b9 !important;
+  border-color: #2980b9 !important;
+}
+
+/* 移动端触控优化 */
+.touch-target {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}

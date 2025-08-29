@@ -100,18 +100,13 @@ export default defineNuxtConfig({
     '~/assets/css/main.css'
   ],
   
-  
-
-
-    // 颜色模式
-    colorMode: {
-      preference: 'dark',
-      fallback: 'dark',
-      classSuffix: '',
-      storageKey: 'nuxt-color-mode'
-    },
-
-
+  // 颜色模式
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode'
+  },
 
   // 兼容性日期
   compatibilityDate: '2025-08-28',
@@ -122,12 +117,17 @@ export default defineNuxtConfig({
     }
   },
 
-
-
   // 静态站点生成
   nitro: {
     prerender: {
       crawlLinks: true
+    },
+    // 确保静态文件被正确处理
+    routeRules: {
+      '/favicon.ico': { headers: { 'cache-control': 'public, max-age=31536000' } },
+      '/manifest.json': { headers: { 'cache-control': 'public, max-age=31536000' } },
+      '/logo.png': { headers: { 'cache-control': 'public, max-age=31536000' } },
+      '/pay.jpg': { headers: { 'cache-control': 'public, max-age=31536000' } }
     }
   }
 })
