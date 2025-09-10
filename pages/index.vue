@@ -337,7 +337,12 @@ const filteredFestivals = computed(() => {
     if (isExpiredA && !isExpiredB) return 1
     if (!isExpiredA && isExpiredB) return -1
     
-    // 如果都是已过的或都是未过的，按日期排序
+    // 如果都是已过的，按日期升序排列（较近的已过节日在前）
+    if (isExpiredA && isExpiredB) {
+      return dateA.diff(dateB)
+    }
+    
+    // 如果都是未过的，按日期升序排列（较近的未过节日在前）
     return dateA.diff(dateB)
   })
   
