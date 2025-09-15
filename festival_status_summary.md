@@ -1,5 +1,5 @@
 # Festival Status Summary
-Current Date: September 8, 2025
+Current Date: September 15, 2025
 
 ## Past Festivals (Already Occurred)
 1. 元旦 (January 1, 2025)
@@ -22,23 +22,23 @@ Current Date: September 8, 2025
 18. 建党节 (July 1, 2025)
 19. 像素游戏节 (April 15, 2025)
 20. 夏日清凉节 (July 15, 2025)
+21. 七夕节 (August 2, 2025)
+22. 建军节 (August 1, 2025)
 
 ## Current/Upcoming Festivals
-1. 七夕节 (August 2, 2025) - Past
-2. 建军节 (August 1, 2025) - Past
-3. 教师节 (September 10, 2025) - Upcoming (2 days)
-4. 秋日丰收节 (September 22, 2025) - Upcoming (14 days)
-5. 中秋节 (September 29, 2025) - Upcoming (21 days)
-6. 国庆节 (October 1, 2025) - Upcoming (23 days)
-7. 重阳节 (October 29, 2025) - Upcoming (51 days)
-8. 万圣节 (October 31, 2025) - Upcoming (53 days)
-9. 双11购物节 (November 11, 2025) - Upcoming (64 days)
-10. 感恩节 (November 27, 2025) - Upcoming (80 days)
-11. 考研 (December 21, 2025) - Upcoming (104 days)
-12. 世界艾滋病日 (December 1, 2025) - Upcoming (114 days)
-13. 冬日暖炉节 (December 7, 2025) - Upcoming (120 days)
-14. 双12购物节 (December 12, 2025) - Upcoming (125 days)
-15. 冬至 (December 22, 2025) - Upcoming (135 days)
-16. 圣诞节 (December 25, 2025) - Upcoming (138 days)
+1. 教师节 (September 10, 2025) - Past (-5 days)
+2. 秋日丰收节 (September 22, 2025) - Upcoming (7 days)
+3. 中秋节 (September 29, 2025) - Upcoming (14 days)
+4. 国庆节 (October 1, 2025) - Upcoming (16 days)
+5. 重阳节 (October 29, 2025) - Upcoming (44 days)
+6. 万圣节 (October 31, 2025) - Upcoming (46 days)
+7. 双11购物节 (November 11, 2025) - Upcoming (57 days)
+8. 感恩节 (November 27, 2025) - Upcoming (73 days)
+9. 考研 (December 21, 2025) - Upcoming (97 days)
+10. 世界艾滋病日 (December 1, 2025) - Upcoming (107 days)
+11. 冬日暖炉节 (December 7, 2025) - Upcoming (113 days)
+12. 双12购物节 (December 12, 2025) - Upcoming (118 days)
+13. 冬至 (December 22, 2025) - Upcoming (128 days)
+14. 圣诞节 (December 25, 2025) - Upcoming (131 days)
 
 Note: The application correctly identifies festivals that have already passed and shows appropriate status for upcoming festivals. The countdowns are calculated based on the current date and will show "已过" for past festivals and the number of days remaining for upcoming festivals.
