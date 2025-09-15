@@ -1,8 +1,8 @@
 // Test date calculations for the festival marketing calendar
 import dayjs from 'dayjs';
 
-// Current date for testing (September 8, 2025)
-const currentDate = dayjs('2025-09-08');
+// Current date for testing (September 15, 2025)
+const currentDate = dayjs('2025-09-15');
 
 // Example festivals
 const festivals = [

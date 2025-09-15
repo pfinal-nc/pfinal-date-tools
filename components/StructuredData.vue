@@ -9,7 +9,7 @@ const websiteSchema = {
   '@type': 'WebSite',
   name: '妙策',
   url: 'https://miao.friday-go.icu',
-  description: '专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。支持双11、618、春节等30+节日营销策划，包含促销活动策划、营销推广方案、节日营销策略。',
+  description: '妙策是专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。支持双11、618、春节等30+节日营销策划，包含促销活动策划、营销推广方案、节日营销策略。节日营销日历,电商节日节点表,双11筹备时间表,母亲节餐饮促销方案,美妆节日营销,教育机构招生,营销策划工具。',
   potentialAction: {
     '@type': 'SearchAction',
     target: 'https://miao.friday-go.icu/?search={search_term_string}',
@@ -46,7 +46,7 @@ const softwareApplicationSchema = {
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
   url: 'https://miao.friday-go.icu',
-  description: '专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。支持双11、618、春节等30+节日营销策划，包含促销活动策划、营销推广方案、节日营销策略。',
+  description: '妙策是专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。支持双11、618、春节等30+节日营销策划，包含促销活动策划、营销推广方案、节日营销策略。节日营销日历,电商节日节点表,双11筹备时间表,母亲节餐饮促销方案,美妆节日营销,教育机构招生,营销策划工具。',
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -89,7 +89,7 @@ const marketingToolSchema = {
   '@context': 'https://schema.org',
   '@type': 'Tool',
   name: '妙策节日营销日历工具',
-  description: '专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。',
+  description: '妙策是专业的节日营销日历工具，提供电商、餐饮、美妆、教育行业的节日营销节点查询，实时倒计时提醒，可落地的营销方案。节日营销日历,电商节日节点表,双11筹备时间表,母亲节餐饮促销方案,美妆节日营销,教育机构招生,营销策划工具。',
   url: 'https://miao.friday-go.icu',
   applicationCategory: 'Marketing Tool',
   operatingSystem: 'Web Browser',
