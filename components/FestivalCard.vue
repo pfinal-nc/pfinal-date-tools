@@ -127,6 +127,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { safeLocalStorage } from '~/utils/client'
+import { now } from '~/utils/time'
 
 interface Festival {
   id: number
@@ -155,13 +156,13 @@ const isFavorite = ref(false)
 
 // 计算属性
 const daysToFestival = computed(() => {
-  const today = dayjs()
+  const today = now()
   const festivalDate = dayjs(props.festival.date)
   return festivalDate.diff(today, 'day')
 })
 
 const daysToPreparation = computed(() => {
-  const today = dayjs()
+  const today = now()
   const preparationDate = dayjs(props.festival.date).subtract(props.festival.preparationDays, 'day')
   return preparationDate.diff(today, 'day')
 })
@@ -173,7 +174,7 @@ const hasExportPermission = computed(() => {
 
 const isExpired = computed(() => {
   // 检查节日是否已过
-  const today = dayjs()
+  const today = now()
   const festivalDate = dayjs(props.festival.date)
   return festivalDate.isBefore(today, 'day')
 })

@@ -220,6 +220,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { safeClipboard } from '~/utils/client'
+import { now } from '~/utils/time'
 import PaymentModal from './PaymentModal.vue'
 
 interface Festival {
@@ -309,7 +310,7 @@ const getIndustryNames = (industries: string[] | undefined) => {
 
 const getCountdownText = () => {
   if (!props.festival) return ''
-  const today = dayjs()
+  const today = now()
   const festivalDate = dayjs(props.festival.date)
   const days = festivalDate.diff(today, 'day')
   

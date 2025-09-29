@@ -173,12 +173,17 @@
         </div>
       </UContainer>
     </footer>
+    
+    <!-- 时间控制面板 -->
+    <TimeControlPanel />
   </div>
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { safeLocalStorage } from '~/utils/client'
+import { now } from '~/utils/time'
+import TimeControlPanel from '~/components/TimeControlPanel.vue'
 
 // 类型定义
 interface Festival {
@@ -325,7 +330,7 @@ const filteredFestivals = computed(() => {
 
   // 按日期排序，已过的节日放到最后
   const sorted = filtered.sort((a, b) => {
-    const today = dayjs()
+    const today = now()
     const dateA = dayjs(a.date)
     const dateB = dayjs(b.date)
     
@@ -351,14 +356,14 @@ const filteredFestivals = computed(() => {
 
 const upcomingFestivals = computed(() => {
   return filteredFestivals.value.filter(festival => {
-    const days = dayjs(festival.date).diff(dayjs(), 'day')
+    const days = dayjs(festival.date).diff(now(), 'day')
     return days >= 0 && days <= 30
   })
 })
 
 const expiredFestivals = computed(() => {
   return filteredFestivals.value.filter(festival => {
-    const days = dayjs(festival.date).diff(dayjs(), 'day')
+    const days = dayjs(festival.date).diff(now(), 'day')
     return days < 0
   })
 })
@@ -366,7 +371,7 @@ const expiredFestivals = computed(() => {
 const preparationFestivals = computed(() => {
   return filteredFestivals.value.filter(festival => {
     const preparationDate = dayjs(festival.date).subtract(festival.preparationDays, 'day')
-    const days = preparationDate.diff(dayjs(), 'day')
+    const days = preparationDate.diff(now(), 'day')
     return days >= 0 && days <= 15
   })
 })
