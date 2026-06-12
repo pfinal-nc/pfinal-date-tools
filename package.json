@@ -25,13 +25,5 @@
     "@nuxt/devtools": "latest",
     "nuxt": "^4.0.0",
     "tailwindcss": "^4.1.12"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "core-js",
-      "esbuild",
-      "vue-demi"
-    ]
   }
 }
