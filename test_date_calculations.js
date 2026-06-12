@@ -1,15 +1,15 @@
 // Test date calculations for the festival marketing calendar
 import dayjs from 'dayjs';
 
-// Current date for testing (September 15, 2025)
-const currentDate = dayjs('2025-09-15');
+// Current date for testing (June 12, 2026)
+const currentDate = dayjs('2026-06-12');
 
 // Example festivals
 const festivals = [
-  { name: '元旦', date: '2025-01-01', preparationDays: 15 },
-  { name: '教师节', date: '2025-09-10', preparationDays: 15 },
-  { name: '中秋节', date: '2025-09-29', preparationDays: 25 },
-  { name: '国庆节', date: '2025-10-01', preparationDays: 30 }
+  { name: '元旦', date: '2026-01-01', preparationDays: 15 },
+  { name: '教师节', date: '2026-09-10', preparationDays: 15 },
+  { name: '中秋节', date: '2026-10-04', preparationDays: 25 },
+  { name: '国庆节', date: '2026-10-01', preparationDays: 30 }
 ];
 
 console.log('Current Date:', currentDate.format('YYYY-MM-DD'));

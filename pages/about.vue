@@ -248,7 +248,7 @@
             <div class="flex justify-between items-start">
               <div>
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  v1.0.0 - 2025年1月
+                  v1.1.0 - 2026年6月
                 </h3>
                 <ul class="text-gray-600 dark:text-gray-300 space-y-1">
                   <li>• 发布节日营销日历基础版本</li>
@@ -287,7 +287,7 @@
             <span class="text-lg font-semibold text-gray-900 dark:text-white">妙策</span>
           </div>
           <div class="text-gray-500 dark:text-gray-400">
-            <p>© 2025 妙策 | 数据每年更新</p>
+            <p>© 2026 妙策 | 数据每年更新</p>
             <p class="text-sm mt-1">
               专业的节日营销工具，助力商家提升营销效果
             </p>

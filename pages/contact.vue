@@ -280,7 +280,7 @@
             <span class="text-lg font-semibold text-gray-900 dark:text-white">妙策</span>
           </div>
           <div class="text-gray-500 dark:text-gray-400">
-            <p>© 2025 妙策 | 数据每年更新</p>
+            <p>© 2026 妙策 | 数据每年更新</p>
             <p class="text-sm mt-1">
               专业的节日营销工具，助力商家提升营销效果
             </p>
